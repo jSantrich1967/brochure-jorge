@@ -1137,13 +1137,15 @@
             body {
                 background-color: var(--color-bg-dark);
                 overflow-y: auto;
-                padding-top: 110px;
+                overflow-x: hidden;
+                padding-top: 95px;
             }
 
             .studio-environment {
-                min-height: auto;
-                padding: 20px 10px;
+                min-height: 100vh;
+                padding: 20px 10px 40px;
                 background: var(--color-bg-dark);
+                overflow-x: hidden;
             }
 
             .studio-table {
@@ -1151,26 +1153,24 @@
             }
 
             .brochure-scaler-wrapper {
-                height: auto;
-                width: 100%;
-                max-width: 480px;
-                transform: none !important;
+                width: var(--brochure-width);
+                max-width: none;
+                height: var(--brochure-height);
+                transform-origin: center top;
             }
 
             .brochure-3d-perspective {
-                perspective: none;
-                transform-style: flat;
-                height: auto;
+                width: 100%;
+                height: 100%;
+                perspective: 2200px;
+                transform-style: preserve-3d;
             }
 
             .brochure {
-                width: 100%;
-                height: auto;
-                transform: none !important;
-                transform-style: flat;
-                display: flex;
-                flex-direction: column;
-                gap: 25px;
+                width: var(--brochure-width);
+                height: var(--brochure-height);
+                transform-style: preserve-3d;
+                display: block;
             }
 
             .brochure-shadow-cast {
@@ -1178,51 +1178,35 @@
             }
 
             .panel {
-                position: relative;
-                width: 100% !important;
-                height: auto !important;
-                left: 0 !important;
-                transform: none !important;
-                transform-style: flat;
-                border-radius: 12px;
+                position: absolute;
+                width: var(--panel-width) !important;
+                height: 100% !important;
+                transform-style: preserve-3d;
+                border-radius: 6px;
                 box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important;
                 overflow: visible;
             }
 
+            .panel-left {
+                left: 0 !important;
+            }
+
+            .panel-center {
+                left: var(--panel-width) !important;
+            }
+
+            .panel-right {
+                left: calc(var(--panel-width) * 2) !important;
+            }
+
             .panel-face {
-                position: relative;
+                position: absolute;
                 width: 100%;
-                height: auto;
-                backface-visibility: visible;
-                -webkit-backface-visibility: visible;
-                transform: none !important;
-                border-radius: 12px;
-                padding: 30px 20px;
-                box-shadow: none;
-                overflow: visible;
-            }
-
-            .panel-left .panel-back,
-            .panel-center .panel-back {
-                display: none;
-            }
-
-            .panel-left .panel-front {
-                display: block;
-            }
-
-            .brochure.mobile-mode .panel-right .panel-back {
-                order: -2;
-                margin-bottom: 25px;
-                border-radius: 12px;
-                display: block;
-            }
-
-            .brochure.mobile-mode .panel-left .panel-back {
-                display: block;
-                order: 3;
-                border-radius: 12px;
-                margin-top: 10px;
+                height: 100%;
+                backface-visibility: hidden;
+                -webkit-backface-visibility: hidden;
+                border-radius: 6px;
+                box-shadow: inset 0 0 1px rgba(255,255,255,0.08);
             }
 
             .inside-left-container,
@@ -2065,16 +2049,19 @@
             
             if (width <= 768) {
                 brochure.classList.add('mobile-mode');
-                brochure.classList.remove('closed');
-                brochure.classList.add('open');
                 brochure.classList.remove('view-table');
                 brochure.classList.add('view-flat');
+
+                if (isOpen) {
+                    brochure.classList.remove('closed');
+                    brochure.classList.add('open');
+                } else {
+                    brochure.classList.remove('open');
+                    brochure.classList.add('closed');
+                }
                 
-                btnToggleFold.style.display = 'none';
+                btnToggleFold.style.display = 'flex';
                 if (btnToggleView) btnToggleView.style.display = 'none';
-                
-                brochureScaler.style.transform = 'none';
-                return;
             } else {
                 brochure.classList.remove('mobile-mode');
                 btnToggleFold.style.display = 'flex';
@@ -2093,11 +2080,11 @@
                 brochure.classList.add('view-flat');
             }
 
-            const padding = 50;
+            const padding = width <= 768 ? 24 : 50;
             const availableWidth = window.innerWidth - padding;
-            const availableHeight = window.innerHeight - 180;
+            const availableHeight = window.innerHeight - (width <= 768 ? 135 : 180);
 
-            const designWidth = 1040; 
+            const designWidth = isOpen ? 1040 : 360; 
             const designHeight = 660;
 
             const scaleX = availableWidth / designWidth;
