@@ -600,6 +600,29 @@
             padding-left: 10px;
         }
 
+        .cover-contact-info {
+            z-index: 2;
+            display: grid;
+            gap: 4px;
+            margin: 6px 0 14px;
+            padding: 10px 12px;
+            border: 1px solid rgba(0, 245, 212, 0.16);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.035);
+            color: #e2e8f0;
+            font-family: var(--font-body);
+            font-size: 10.5px;
+            line-height: 1.35;
+        }
+
+        .cover-contact-name {
+            color: #ffffff;
+            font-family: var(--font-headings);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+        }
+
         .cover-visual-footer {
             display: flex;
             justify-content: space-between;
@@ -1153,24 +1176,33 @@
             }
 
             .brochure-scaler-wrapper {
-                width: var(--brochure-width);
-                max-width: none;
-                height: var(--brochure-height);
-                transform-origin: center top;
+                width: 100%;
+                max-width: 430px;
+                height: auto;
+                transform: none !important;
             }
 
             .brochure-3d-perspective {
                 width: 100%;
-                height: 100%;
-                perspective: 2200px;
+                height: auto;
+                perspective: 1400px;
                 transform-style: preserve-3d;
             }
 
             .brochure {
-                width: var(--brochure-width);
-                height: var(--brochure-height);
+                width: 100%;
+                height: auto;
                 transform-style: preserve-3d;
+                display: flex;
+                flex-direction: column;
+                gap: 18px;
+            }
+
+            .brochure.mobile-mode.closed {
+                width: 100%;
+                height: 640px;
                 display: block;
+                transform: none !important;
             }
 
             .brochure-shadow-cast {
@@ -1178,35 +1210,75 @@
             }
 
             .panel {
-                position: absolute;
-                width: var(--panel-width) !important;
-                height: 100% !important;
-                transform-style: preserve-3d;
+                position: relative;
+                width: 100% !important;
+                height: auto !important;
+                left: 0 !important;
                 border-radius: 6px;
                 box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important;
                 overflow: visible;
+                transform: none !important;
+                transform-style: flat;
             }
 
-            .panel-left {
-                left: 0 !important;
+            .brochure.mobile-mode.closed .panel {
+                position: absolute;
+                top: 0;
+                height: 100% !important;
+                transform-style: preserve-3d;
             }
 
-            .panel-center {
-                left: var(--panel-width) !important;
+            .brochure.mobile-mode.closed .panel-left,
+            .brochure.mobile-mode.closed .panel-center {
+                display: none;
             }
 
-            .panel-right {
-                left: calc(var(--panel-width) * 2) !important;
+            .brochure.mobile-mode.closed .panel-right {
+                display: block;
+                transform: none !important;
+                z-index: 30;
             }
 
             .panel-face {
-                position: absolute;
+                position: relative;
                 width: 100%;
-                height: 100%;
-                backface-visibility: hidden;
-                -webkit-backface-visibility: hidden;
+                height: auto;
+                min-height: 540px;
+                backface-visibility: visible;
+                -webkit-backface-visibility: visible;
                 border-radius: 6px;
                 box-shadow: inset 0 0 1px rgba(255,255,255,0.08);
+                transform: none !important;
+                overflow: visible;
+            }
+
+            .brochure.mobile-mode.closed .panel-face {
+                position: absolute;
+                height: 100%;
+                min-height: 0;
+                backface-visibility: hidden;
+                -webkit-backface-visibility: hidden;
+            }
+
+            .brochure.mobile-mode.closed .panel-right .panel-front {
+                display: none;
+            }
+
+            .brochure.mobile-mode.closed .panel-right .panel-back {
+                display: flex;
+                transform: none !important;
+            }
+
+            .brochure.mobile-mode.open .panel-left .panel-back,
+            .brochure.mobile-mode.open .panel-center .panel-back,
+            .brochure.mobile-mode.open .panel-right .panel-back {
+                display: none;
+            }
+
+            .brochure.mobile-mode.open .panel-left .panel-front,
+            .brochure.mobile-mode.open .panel-center .panel-front,
+            .brochure.mobile-mode.open .panel-right .panel-front {
+                display: flex;
             }
 
             .inside-left-container,
@@ -1262,11 +1334,8 @@
                 top: 15px;
             }
             
-            .control-btn span {
-                display: none;
-            }
             .control-btn {
-                padding: 10px 16px;
+                padding: 10px 14px;
             }
         }
 
@@ -1407,7 +1476,7 @@
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
                     <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
                 </svg>
-                <span id="btn-fold-text">Abrir brochure</span>
+                <span id="btn-fold-text">Abrir</span>
             </button>
 
             <!-- Botón Vista Mesa eliminado: solo Vista Plana -->
@@ -1948,6 +2017,13 @@
                                     </p>
                                 </div>
 
+                                <!-- Datos visibles desde la portada cerrada -->
+                                <div class="cover-contact-info">
+                                    <div class="cover-contact-name">Jorge Santrich</div>
+                                    <div>+58 414 647 0976 | +58 424 650 9405</div>
+                                    <div>jsantrich67@gmail.com</div>
+                                </div>
+
                                 <!-- Footer de la Portada -->
                                 <footer class="cover-visual-footer">
                                     <div class="corporate-badge">Executive Edition</div>
@@ -1996,7 +2072,7 @@
             if (isOpen) {
                 brochure.classList.remove('closed');
                 brochure.classList.add('open');
-                btnFoldText.textContent = "Cerrar brochure";
+                btnFoldText.textContent = "Cerrar";
                 btnToggleFold.setAttribute('aria-expanded', 'true');
                 
                 btnToggleFold.querySelector('svg').innerHTML = `
@@ -2006,7 +2082,7 @@
             } else {
                 brochure.classList.remove('open');
                 brochure.classList.add('closed');
-                btnFoldText.textContent = "Abrir brochure";
+                btnFoldText.textContent = "Abrir";
                 btnToggleFold.setAttribute('aria-expanded', 'false');
                 
                 btnToggleFold.querySelector('svg').innerHTML = `
