@@ -1,0 +1,2128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquitecto de Soluciones Empresariales con IA - Brochure Corporativo</title>
+    <!-- Google Fonts: Montserrat (Comercial, moderna e impacto tecnológico) y Plus Jakarta Sans (Sleek sans-serif ejecutiva) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           1. VARIABLES DEL SISTEMA DE DISEÑO (CSS Custom Properties)
+           ========================================================================== */
+        :root {
+            /* Fuentes comerciales premium */
+            --font-headings: 'Montserrat', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+
+            /* Colores de Marca Ajustados al Logotipo */
+            --color-bg-dark: #060b13;         /* Gris oscuro azulado tipo estudio */
+            --color-brand-dark: #081223;      /* Azul marino oscuro del logotipo */
+            --color-brand-medium: #111e33;    /* Azul marino intermedio */
+            --color-brand-light: #5bc0be;     /* Gris plata azulado */
+            --color-teal: #00f5d4;            /* Acento turquesa / Teal brillante */
+            --color-blue-glow: #00bbf9;       /* Acento azul brillante */
+            
+            /* Colores de Contenido Interno */
+            --color-paper-light: #fcfdfe;     /* Blanco premium */
+            --color-paper-dark: #f1f4f8;      /* Gris plata ultra claro */
+            --color-text-dark: #0f172a;       /* Texto oscuro de alta legibilidad */
+            --color-text-muted: #475569;      /* Texto secundario */
+            --color-text-light: #f8fafc;      /* Texto claro */
+            
+            /* Sombras Físicas Realistas */
+            --shadow-flat: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-paper-closed: 
+                0 30px 70px rgba(0,0,0,0.55), 
+                0 15px 30px rgba(0,0,0,0.35), 
+                inset 0 0 20px rgba(255,255,255,0.03);
+            --shadow-paper-open: 
+                0 40px 100px rgba(0,0,0,0.38), 
+                0 20px 40px rgba(0,0,0,0.22), 
+                inset 0 0 30px rgba(0,0,0,0.02);
+            --shadow-card: 0 10px 30px rgba(10, 17, 40, 0.04);
+            
+            /* Dimensiones del Tríptico (Proporción horizontal A4 / Carta) */
+            --brochure-width: 1020px;
+            --brochure-height: 640px;
+            --panel-width: calc(var(--brochure-width) / 3);
+            
+            /* Animación */
+            --transition-speed: 1.25s;
+            --transition-easing: cubic-bezier(0.25, 1, 0.35, 1);
+        }
+
+        /* ==========================================================================
+           2. ESTILOS DE RESET Y CONFIGURACIÓN GENERAL
+           ========================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg-dark);
+            color: var(--color-text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ==========================================================================
+           3. ESCENARIO 3D / MESA / ESTUDIO FOTOGRÁFICO
+           ========================================================================== */
+        .studio-environment {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at 50% 45%, #101929 0%, var(--color-bg-dark) 85%);
+            padding: 95px 20px 40px 20px;
+            z-index: 1;
+        }
+
+        /* Mesa sutil reflectiva debajo del brochure */
+        .studio-table {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 45vh;
+            background: linear-gradient(180deg, rgba(16, 26, 42, 0.45) 0%, rgba(4, 6, 10, 0.85) 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .studio-table::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 100%;
+            background: radial-gradient(ellipse at top, rgba(0, 245, 212, 0.04), transparent 70%);
+            filter: blur(50px);
+        }
+
+        /* Grid tecnológico decorativo en el espacio tridimensional */
+        .tech-grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(rgba(91, 192, 190, 0.06) 1.5px, transparent 1.5px),
+                linear-gradient(rgba(91, 192, 190, 0.015) 1px, transparent 1px);
+            background-size: 40px 40px, 40px 40px;
+            background-position: center;
+            opacity: 0.75;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        /* ==========================================================================
+           4. BARRA DE CONTROL PREMIUM (Glassmorphism)
+           ========================================================================== */
+        .control-bar {
+            position: fixed;
+            top: 25px;
+            display: flex;
+            gap: 15px;
+            padding: 8px 18px;
+            background: rgba(8, 18, 35, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 50px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.45);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn {
+            background: transparent;
+            border: none;
+            color: #a4b8d4;
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 13.5px;
+            padding: 9px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .control-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 245, 212, 0.15), rgba(0, 187, 249, 0.15));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .control-btn:hover {
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 245, 212, 0.15);
+            border-color: rgba(0, 245, 212, 0.25);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .control-btn.active {
+            color: var(--color-bg-dark);
+            background: linear-gradient(135deg, var(--color-teal), var(--color-blue-glow));
+            font-weight: 600;
+            box-shadow: 0 0 20px rgba(0, 245, 212, 0.35);
+        }
+
+        .control-btn.active:hover {
+            box-shadow: 0 0 25px rgba(0, 245, 212, 0.5);
+        }
+
+        .control-btn svg {
+            transition: transform 0.3s ease;
+        }
+
+        .control-btn:hover svg {
+            transform: scale(1.08);
+        }
+
+        /* ==========================================================================
+           5. CONTENEDOR 3D Y SOPORTE DE ESCALA RESPONSIVA
+           ========================================================================== */
+        .brochure-scaler-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: var(--brochure-width);
+            height: var(--brochure-height);
+            transition: transform 0.4s ease;
+            overflow: visible;
+        }
+
+        .brochure-3d-perspective {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            perspective: 2500px;
+            transform-style: preserve-3d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+        }
+
+        /* ==========================================================================
+           6. ARQUITECTURA DEL TRÍPTICO 3D (.brochure)
+           ========================================================================== */
+        .brochure {
+            position: relative;
+            width: var(--brochure-width);
+            height: var(--brochure-height);
+            transform-style: preserve-3d;
+            transition: transform var(--transition-speed) var(--transition-easing);
+            cursor: pointer;
+        }
+
+        /* VISTAS GLOBALES DEL BROCHURE */
+        
+        /* 1. Vista de Mesa en perspectiva 3D (Cerrado por defecto) */
+        .brochure.view-table.closed {
+            transform: rotateX(54deg) rotateY(-2deg) rotateZ(-12deg) translateZ(0px);
+        }
+        
+        .brochure.view-table.open {
+            transform: rotateX(24deg) rotateY(0deg) rotateZ(-2deg) translateZ(0px);
+        }
+
+        /* 2. Vista Plana / Frontal para lectura cómoda */
+        .brochure.view-flat.closed {
+            transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+        }
+
+        .brochure.view-flat.open {
+            transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+        }
+
+        /* Sombra dinámica realista proyectada debajo del brochure */
+        .brochure-shadow-cast {
+            position: absolute;
+            top: 10%;
+            left: 5%;
+            width: 90%;
+            height: 85%;
+            background: rgba(0, 0, 0, 0.7);
+            filter: blur(40px);
+            border-radius: 30px;
+            pointer-events: none;
+            transition: all var(--transition-speed) var(--transition-easing);
+            z-index: -10;
+        }
+
+        .brochure.closed ~ .brochure-shadow-cast {
+            left: 35%;
+            width: 32%;
+            top: 8%;
+            height: 88%;
+            filter: blur(25px);
+            opacity: 0.85;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            transform: rotateX(54deg) rotateY(-2deg) rotateZ(-12deg) translateY(15px);
+        }
+
+        .brochure.view-flat.closed ~ .brochure-shadow-cast {
+            left: 36%;
+            width: 28%;
+            top: 5%;
+            height: 90%;
+            filter: blur(20px);
+            opacity: 0.6;
+            transform: rotateX(0deg) translateY(20px);
+        }
+
+        .brochure.view-flat.open ~ .brochure-shadow-cast {
+            left: 2%;
+            width: 96%;
+            top: 8%;
+            height: 84%;
+            filter: blur(35px);
+            opacity: 0.45;
+            transform: rotateX(0deg) translateY(25px);
+        }
+
+        /* ==========================================================================
+           7. PANELES INDIVIDUALES (.panel) Y CARAS (.panel-face)
+           ========================================================================== */
+        .panel {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: var(--panel-width);
+            transform-style: preserve-3d;
+            transition: transform var(--transition-speed) var(--transition-easing), 
+                        box-shadow var(--transition-speed) var(--transition-easing),
+                        z-index 0.1s ease;
+        }
+
+        .panel-face {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 3px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            box-shadow: inset 0 0 1px rgba(255,255,255,0.08);
+            transition: transform var(--transition-speed) var(--transition-easing);
+        }
+
+        /* Ocultar barra de scroll en los paneles */
+        .panel-face::-webkit-scrollbar {
+            width: 4px;
+        }
+        .panel-face::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .panel-face::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        /* Textura fina de papel premium en el interior */
+        .panel-front {
+            background-color: var(--color-paper-light);
+            background-image: 
+                radial-gradient(rgba(10, 17, 40, 0.015) 1px, transparent 0),
+                linear-gradient(to right, rgba(0, 0, 0, 0.01) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.01) 1px, transparent 1px);
+            background-size: 16px 16px, 12px 12px, 12px 12px;
+            color: var(--color-text-dark);
+            transform: rotateY(0deg);
+            z-index: 2;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* Paneles exteriores (oscuros, elegantes, tecnológicos) */
+        .panel-back {
+            background-color: var(--color-brand-dark);
+            color: var(--color-text-light);
+            transform: rotateY(180deg);
+            z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        /* Sombreado realista en los dobleces */
+        .panel-front::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            transition: background var(--transition-speed) var(--transition-easing);
+            z-index: 5;
+        }
+
+        /* ==========================================================================
+           8. LÓGICA DE ROTACIÓN 3D Y BISAGRAS
+           ========================================================================== */
+
+        /* --- 8.1 PANEL CENTRAL --- */
+        .panel-center {
+            left: var(--panel-width);
+            z-index: 10;
+        }
+        .panel-center .panel-front::after {
+            background: linear-gradient(to right, rgba(0,0,0,0.04) 0%, transparent 6%, transparent 94%, rgba(0,0,0,0.04) 100%);
+        }
+        .brochure.closed .panel-center .panel-front::after {
+            background: rgba(0,0,0,0.6);
+        }
+        .brochure.closed .panel-center {
+            z-index: 5;
+        }
+
+        /* --- 8.2 PANEL IZQUIERDO (Bisagra a la derecha) --- */
+        .panel-left {
+            left: 0;
+            transform-origin: right center;
+            z-index: 12;
+        }
+        .brochure.closed .panel-left {
+            transform: rotateY(179deg) translateZ(4px);
+            z-index: 20;
+            transition-delay: 0s;
+        }
+        .brochure.open .panel-left {
+            transform: rotateY(0deg);
+            z-index: 11;
+            transition-delay: 0.35s;
+        }
+        .panel-left .panel-front::after {
+            background: linear-gradient(to left, rgba(0,0,0,0.06) 0%, transparent 8%);
+        }
+        .brochure.closed .panel-left .panel-front::after {
+            background: rgba(0,0,0,0.55);
+        }
+
+        /* --- 8.3 PANEL DERECHO (Bisagra a la izquierda) --- */
+        .panel-right {
+            left: calc(var(--panel-width) * 2);
+            transform-origin: left center;
+            z-index: 13;
+        }
+        .brochure.closed .panel-right {
+            transform: translateX(calc(var(--panel-width) * -1)) translateZ(8px);
+            z-index: 30;
+            transition-delay: 0.35s;
+        }
+        .brochure.open .panel-right {
+            transform: translateX(0) rotateY(0deg);
+            z-index: 11;
+            transition-delay: 0s;
+        }
+        .brochure.closed .panel-right .panel-front {
+            transform: rotateY(180deg);
+        }
+        .brochure.closed .panel-right .panel-back {
+            transform: rotateY(0deg);
+            z-index: 4;
+        }
+        .panel-right .panel-front::after {
+            background: linear-gradient(to right, rgba(0,0,0,0.06) 0%, transparent 8%);
+        }
+        .brochure.closed .panel-right .panel-front::after {
+            background: rgba(0,0,0,0.5);
+        }
+
+        /* Hover físico */
+        /* ==========================================================================
+           9. CONTENIDOS - PORTADA (Cara Externa del Panel Derecho)
+           ========================================================================== */
+        .cover-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            padding: 35px 25px;
+            background: linear-gradient(135deg, #091629 0%, var(--color-brand-dark) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Circuitos SVG brillantes */
+        .cover-glow-circuits {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .cover-brand-header {
+            z-index: 2;
+            text-align: center;
+        }
+
+        .cover-tagline-small {
+            font-family: var(--font-headings);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3.5px;
+            color: var(--color-teal);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            display: inline-block;
+            border-bottom: 1px solid rgba(0, 245, 212, 0.2);
+            padding-bottom: 3px;
+        }
+
+        /* Integración del Logo Premium y Ajustes de Fusión */
+        .cover-logo-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            background: transparent;
+            padding: 0;
+            min-height: 160px;
+            z-index: 2;
+            position: relative;
+            width: 100%;
+        }
+
+        .cover-logo {
+            width: 100%;
+            max-height: 175px;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4));
+            transition: all 0.5s ease;
+        }
+
+        .cover-logo:hover {
+            transform: scale(1.03);
+            filter: drop-shadow(0 8px 25px rgba(0, 245, 212, 0.45));
+        }
+
+        /* Fallback SVG del Logo que replica el original */
+        .cover-logo-fallback {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-align: left;
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .fallback-symbol {
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 8px rgba(0, 245, 212, 0.4));
+        }
+
+        .fallback-brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cover-main-content {
+            z-index: 2;
+            margin-top: 5px;
+        }
+
+        .cover-title {
+            font-family: var(--font-headings);
+            font-weight: 700;
+            font-size: 21px;
+            line-height: 1.35;
+            color: #ffffff;
+            margin-bottom: 12px;
+            letter-spacing: 0.2px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding-top: 12px;
+        }
+
+        .cover-title span {
+            display: block;
+            font-size: 13.5px;
+            font-family: var(--font-body);
+            font-weight: 400;
+            color: #94a3b8;
+            margin-top: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .cover-subtitle {
+            font-family: var(--font-body);
+            font-size: 13px;
+            line-height: 1.5;
+            color: #cbd5e1;
+            font-weight: 300;
+            margin-bottom: 15px;
+            border-left: 2px solid var(--color-teal);
+            padding-left: 10px;
+        }
+
+        .cover-visual-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding-top: 15px;
+            z-index: 2;
+        }
+
+        .corporate-badge {
+            font-family: var(--font-headings);
+            font-size: 9.5px;
+            letter-spacing: 2px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+        }
+
+        .cover-tech-nodes {
+            display: flex;
+            gap: 6px;
+        }
+
+        .node-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--color-teal);
+            box-shadow: 0 0 8px var(--color-teal);
+        }
+
+        .node-dot:nth-child(2) {
+            background-color: var(--color-blue-glow);
+            box-shadow: 0 0 8px var(--color-blue-glow);
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        .node-dot:nth-child(3) {
+            background-color: #ffffff;
+            box-shadow: 0 0 8px #ffffff;
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.3; transform: scale(0.95); }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 0.3; transform: scale(0.95); }
+        }
+
+        /* ==========================================================================
+           10. CONTENIDOS - PANEL REVERSO (Cara Externa del Panel Izquierdo)
+           ========================================================================== */
+        .reverso-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            padding: 35px 25px;
+            background: linear-gradient(135deg, var(--color-brand-medium) 0%, var(--color-brand-dark) 100%);
+            position: relative;
+        }
+
+        .reverso-bg-lines {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px);
+            background-size: 100% 25px;
+            pointer-events: none;
+        }
+
+        .reverso-title {
+            font-family: var(--font-headings);
+            font-weight: 700;
+            font-size: 20px;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--color-blue-glow);
+            padding-bottom: 12px;
+            margin-bottom: 22px;
+        }
+
+        .diferenciadores-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .diferenciador-item {
+            display: flex;
+            gap: 12px;
+        }
+
+        .diferenciador-icon-box {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(0, 187, 249, 0.1);
+            border: 1px solid rgba(0, 187, 249, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-blue-glow);
+        }
+
+        .diferenciador-info h4 {
+            font-family: var(--font-headings);
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 3px;
+        }
+
+        .diferenciador-info p {
+            font-size: 12px;
+            line-height: 1.45;
+            color: #94a3b8;
+        }
+
+        .reverso-footer-brand {
+            font-family: var(--font-headings);
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #475569;
+            text-align: center;
+            margin-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 15px;
+            font-weight: 500;
+        }
+
+        /* ==========================================================================
+           11. CONTENIDOS - PANEL EXTERIOR CENTRAL
+           ========================================================================== */
+        .back-cover-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background: #040914;
+            border: 1px solid rgba(255,255,255,0.01);
+            padding: 40px;
+            position: relative;
+        }
+
+        .back-cover-geometric {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border: 1px solid rgba(91, 192, 190, 0.08);
+            transform: rotate(45deg);
+            pointer-events: none;
+        }
+
+        .back-cover-geometric::after {
+            content: '';
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px dashed rgba(0, 245, 212, 0.05);
+        }
+
+        .back-cover-brand {
+            font-family: var(--font-headings);
+            font-weight: 700;
+            font-size: 17px;
+            letter-spacing: 3px;
+            color: rgba(255,255,255,0.15);
+            z-index: 2;
+            text-align: center;
+        }
+
+        .back-cover-brand span {
+            display: block;
+            font-family: var(--font-body);
+            font-size: 10px;
+            letter-spacing: 4px;
+            color: rgba(0, 245, 212, 0.2);
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        /* ==========================================================================
+           12. CONTENIDOS - DISEÑO INTERIOR (PANELES CLAROS)
+           ========================================================================== */
+        
+        .panel-interior-header {
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+            padding-bottom: 10px;
+        }
+
+        .panel-interior-tag {
+            font-family: var(--font-headings);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--color-brand-medium);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .panel-interior-title {
+            font-family: var(--font-headings);
+            font-weight: 800;
+            font-size: 18px;
+            color: var(--color-brand-dark);
+            letter-spacing: 0.2px;
+        }
+
+        /* --- 12.1 PANEL INTERNO IZQUIERDO --- */
+        .inside-left-container {
+            padding: 30px 25px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .que-hacemos-box {
+            margin-bottom: 25px;
+        }
+
+        .que-hacemos-text {
+            font-size: 13.5px;
+            line-height: 1.65;
+            color: var(--color-text-dark);
+            font-weight: 400;
+            text-align: justify;
+        }
+
+        .que-hacemos-text strong {
+            font-weight: 700;
+            color: var(--color-brand-dark);
+        }
+
+        .problemas-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .problema-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 9px 12px;
+            background: rgba(239, 68, 68, 0.02);
+            border-left: 3px solid #ef4444;
+            border-radius: 0 6px 6px 0;
+            transition: all 0.3s ease;
+        }
+
+        .problema-item:hover {
+            background: rgba(239, 68, 68, 0.05);
+            transform: translateX(4px);
+        }
+
+        .problema-icon {
+            flex-shrink: 0;
+            color: #ef4444;
+            display: flex;
+            align-items: center;
+        }
+
+        .problema-text {
+            font-size: 12.5px;
+            font-weight: 500;
+            color: var(--color-text-dark);
+        }
+
+        /* --- 12.2 PANEL INTERNO CENTRAL --- */
+        .inside-center-container {
+            padding: 30px 25px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            justify-content: space-between;
+        }
+
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .servicio-card {
+            background: #ffffff;
+            border: 1px solid rgba(15, 23, 42, 0.05);
+            border-radius: 8px;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--shadow-card);
+            transition: all 0.3s ease;
+        }
+
+        .servicio-card:hover {
+            border-color: var(--color-brand-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(10,17,40,0.06);
+        }
+
+        .servicio-icon-box {
+            flex-shrink: 0;
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            background: rgba(91, 192, 190, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-brand-medium);
+        }
+
+        .servicio-title {
+            font-size: 11px;
+            font-weight: 600;
+            line-height: 1.35;
+            color: var(--color-text-dark);
+        }
+
+        .beneficios-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .beneficio-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px;
+        }
+
+        .beneficio-icon {
+            flex-shrink: 0;
+            color: #10b981;
+            display: flex;
+            align-items: center;
+        }
+
+        .beneficio-text {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--color-text-dark);
+        }
+
+        /* --- 12.3 PANEL INTERNO DERECHO --- */
+        .inside-right-container {
+            padding: 30px 25px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            justify-content: space-between;
+        }
+
+        .metodologia-secuencia {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px 0;
+            position: relative;
+        }
+
+        .metodologia-line {
+            position: absolute;
+            top: 24px;
+            left: 10px;
+            right: 10px;
+            height: 2px;
+            background: rgba(10, 17, 40, 0.06);
+            z-index: 0;
+        }
+
+        .metodologia-paso {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+            width: 20%;
+        }
+
+        .paso-numero {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--color-brand-dark);
+            color: #ffffff;
+            font-family: var(--font-headings);
+            font-weight: 700;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 6px;
+            box-shadow: 0 4px 10px rgba(10,17,40,0.15);
+            border: 2px solid #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .metodologia-paso:hover .paso-numero {
+            background: var(--color-brand-light);
+            transform: scale(1.1);
+        }
+
+        .paso-nombre {
+            font-size: 9.5px;
+            font-weight: 700;
+            color: var(--color-text-dark);
+            text-align: center;
+            letter-spacing: 0.1px;
+        }
+
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .area-box {
+            background: #ffffff;
+            border: 1px solid rgba(15, 23, 42, 0.04);
+            border-radius: 6px;
+            padding: 8px 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.01);
+            transition: all 0.3s ease;
+        }
+
+        .area-box:hover {
+            transform: scale(1.03);
+            border-color: rgba(91, 192, 190, 0.4);
+            box-shadow: var(--shadow-card);
+        }
+
+        .area-icon {
+            color: var(--color-brand-medium);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .area-nombre {
+            font-size: 9.5px;
+            font-weight: 700;
+            color: var(--color-text-muted);
+            line-height: 1.1;
+        }
+
+        /* Bloque de Contacto Premium con CTA */
+        .contacto-premium-box {
+            background: linear-gradient(135deg, var(--color-brand-dark) 0%, var(--color-brand-medium) 100%);
+            border-radius: 10px;
+            padding: 18px;
+            color: #ffffff;
+            box-shadow: 0 10px 25px rgba(10, 17, 40, 0.15);
+            position: relative;
+            overflow: hidden;
+            font-style: normal;
+        }
+
+        .contacto-premium-box::after {
+            content: '';
+            position: absolute;
+            bottom: -20px; right: -20px;
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background: rgba(0, 245, 212, 0.06);
+            filter: blur(10px);
+        }
+
+        .contacto-cta {
+            font-size: 11px;
+            line-height: 1.45;
+            color: #cbd5e1;
+            font-weight: 300;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 10px;
+        }
+
+        .contacto-cta strong {
+            color: var(--color-teal);
+            font-weight: 600;
+            font-family: var(--font-headings);
+        }
+
+        .contacto-canales {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .canal-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11.5px;
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .canal-item:hover {
+            color: var(--color-teal);
+        }
+
+        .canal-icon {
+            flex-shrink: 0;
+            color: var(--color-teal);
+            display: flex;
+            align-items: center;
+        }
+
+        /* ==========================================================================
+           13. DISEÑO RESPONSIVO INTEGRAL Y COMPORTAMIENTO MÓVIL
+           ========================================================================== */
+        @media (max-width: 1060px) {
+            .brochure-scaler-wrapper {
+                transform: scale(0.9);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                background-color: var(--color-bg-dark);
+                overflow-y: auto;
+                padding-top: 110px;
+            }
+
+            .studio-environment {
+                min-height: auto;
+                padding: 20px 10px;
+                background: var(--color-bg-dark);
+            }
+
+            .studio-table {
+                display: none;
+            }
+
+            .brochure-scaler-wrapper {
+                height: auto;
+                width: 100%;
+                max-width: 480px;
+                transform: none !important;
+            }
+
+            .brochure-3d-perspective {
+                perspective: none;
+                transform-style: flat;
+                height: auto;
+            }
+
+            .brochure {
+                width: 100%;
+                height: auto;
+                transform: none !important;
+                transform-style: flat;
+                display: flex;
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            .brochure-shadow-cast {
+                display: none;
+            }
+
+            .panel {
+                position: relative;
+                width: 100% !important;
+                height: auto !important;
+                left: 0 !important;
+                transform: none !important;
+                transform-style: flat;
+                border-radius: 12px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important;
+                overflow: visible;
+            }
+
+            .panel-face {
+                position: relative;
+                width: 100%;
+                height: auto;
+                backface-visibility: visible;
+                -webkit-backface-visibility: visible;
+                transform: none !important;
+                border-radius: 12px;
+                padding: 30px 20px;
+                box-shadow: none;
+                overflow: visible;
+            }
+
+            .panel-left .panel-back,
+            .panel-center .panel-back {
+                display: none;
+            }
+
+            .panel-left .panel-front {
+                display: block;
+            }
+
+            .brochure.mobile-mode .panel-right .panel-back {
+                order: -2;
+                margin-bottom: 25px;
+                border-radius: 12px;
+                display: block;
+            }
+
+            .brochure.mobile-mode .panel-left .panel-back {
+                display: block;
+                order: 3;
+                border-radius: 12px;
+                margin-top: 10px;
+            }
+
+            .inside-left-container,
+            .inside-center-container,
+            .inside-right-container,
+            .cover-container,
+            .reverso-container {
+                height: auto;
+                min-height: auto;
+            }
+
+            .servicios-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .areas-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .metodologia-secuencia {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+                padding-left: 15px;
+            }
+
+            .metodologia-line {
+                width: 2px;
+                height: 80%;
+                left: 28px;
+                top: 10px;
+            }
+
+            .metodologia-paso {
+                flex-direction: row;
+                width: 100%;
+                gap: 15px;
+                align-items: center;
+            }
+
+            .paso-numero {
+                margin-bottom: 0;
+            }
+
+            .paso-nombre {
+                text-align: left;
+                font-size: 11.5px;
+            }
+
+            .control-bar {
+                width: 90%;
+                justify-content: center;
+                top: 15px;
+            }
+            
+            .control-btn span {
+                display: none;
+            }
+            .control-btn {
+                padding: 10px 16px;
+            }
+        }
+
+        /* ==========================================================================
+           14. MODO IMPRESIÓN EXCLUSIVO (@media print)
+           ========================================================================== */
+        @media print {
+            body, .studio-environment {
+                background: #ffffff !important;
+                color: #000000 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                min-height: auto !important;
+                display: block !important;
+            }
+
+            .control-bar,
+            .studio-table,
+            .tech-grid-overlay,
+            .brochure-shadow-cast {
+                display: none !important;
+            }
+
+            .brochure-scaler-wrapper,
+            .brochure-3d-perspective {
+                width: 100% !important;
+                height: auto !important;
+                perspective: none !important;
+                transform-style: flat !important;
+                transform: none !important;
+                display: block !important;
+            }
+
+            .brochure {
+                display: flex !important;
+                flex-direction: row !important;
+                width: 297mm !important;
+                height: 210mm !important;
+                transform: none !important;
+                transform-style: flat !important;
+                page-break-inside: avoid;
+            }
+
+            .panel {
+                position: relative !important;
+                float: left !important;
+                width: 33.333% !important;
+                height: 100% !important;
+                left: 0 !important;
+                transform: none !important;
+                transform-style: flat !important;
+                border: 1px solid #cccccc !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+            }
+
+            .panel-face {
+                position: relative !important;
+                width: 100% !important;
+                height: 100% !important;
+                transform: none !important;
+                backface-visibility: visible !important;
+                box-shadow: none !important;
+                background: #ffffff !important;
+                color: #000000 !important;
+                border-radius: 0 !important;
+                padding: 15mm 10mm !important;
+                overflow: hidden !important;
+            }
+
+            .panel-back {
+                display: none !important;
+            }
+
+            .panel-front {
+                display: block !important;
+            }
+
+            .panel-left::after {
+                content: '';
+                position: absolute;
+                top: 0; right: 0; bottom: 0;
+                width: 1px;
+                border-right: 1px dashed #aaaaaa !important;
+                z-index: 100;
+            }
+            .panel-center::after {
+                content: '';
+                position: absolute;
+                top: 0; right: 0; bottom: 0;
+                width: 1px;
+                border-right: 1px dashed #aaaaaa !important;
+                z-index: 100;
+            }
+
+            .panel-interior-title {
+                color: #081223 !important;
+            }
+            .servicio-card {
+                border: 1px solid #dddddd !important;
+                box-shadow: none !important;
+                background: #fafafa !important;
+            }
+            .contacto-premium-box {
+                background: #f0f4f8 !important;
+                color: #000000 !important;
+                border: 1px solid #cccccc !important;
+                box-shadow: none !important;
+            }
+            .contacto-cta, .canal-item {
+                color: #333333 !important;
+            }
+            .canal-icon {
+                color: #081223 !important;
+            }
+            .paso-numero {
+                background: #081223 !important;
+                color: #ffffff !important;
+                border-color: #081223 !important;
+            }
+            .problema-item {
+                border-left-color: #ff0000 !important;
+                background: #fff5f5 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Escenario del estudio con mesa de madera y luces sutiles -->
+    <div class="studio-environment">
+        <div class="tech-grid-overlay"></div>
+        <div class="studio-table"></div>
+
+        <!-- BARRA DE CONTROL PREMIUM FLOTANTE -->
+        <nav class="control-bar" role="navigation" aria-label="Controles del Folleto">
+            <button class="control-btn active" id="btn-toggle-fold" aria-expanded="false">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span id="btn-fold-text">Abrir brochure</span>
+            </button>
+
+            <!-- Botón Vista Mesa eliminado: solo Vista Plana -->
+
+            <button class="control-btn" onclick="window.print()" aria-label="Imprimir brochure">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                    <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+                <span>Imprimir</span>
+            </button>
+        </nav>
+
+        <!-- CONTENEDOR DE LA ESCENA 3D -->
+        <div class="brochure-scaler-wrapper" id="brochure-scaler">
+            <div class="brochure-3d-perspective">
+                
+                <!-- CUERPO DEL BROCHURE TRÍPTICO -->
+                <div class="brochure closed view-flat" id="brochure" role="document">
+                    
+                    <!-- ==========================================
+                       A. PANEL IZQUIERDO (Bisagra derecha)
+                       ========================================== -->
+                    <section class="panel panel-left" id="panel-left">
+                        
+                        <!-- CARA FRONTAL (Inside Left: Qué Hacemos + Problemas) -->
+                        <div class="panel-face panel-front">
+                            <div class="inside-left-container">
+                                
+                                <!-- Sección 1: Qué hacemos -->
+                                <div class="que-hacemos-box">
+                                    <div class="panel-interior-header">
+                                        <span class="panel-interior-tag">Innovación y Estrategia</span>
+                                        <h2 class="panel-interior-title">Qué Hacemos</h2>
+                                    </div>
+                                    <p class="que-hacemos-text">
+                                        Asesoramos, diseñamos e implementamos <strong>soluciones empresariales con Inteligencia Artificial</strong> de vanguardia. Nuestro enfoque estratégico permite optimizar procesos críticos, integrar fuentes de datos dispersas, automatizar flujos operativos y convertir el volumen de información de tu negocio en <strong>decisiones inteligentes y rentables</strong>.
+                                    </p>
+                                </div>
+
+                                <!-- Sección 2: Problemas que resolvemos -->
+                                <div class="problemas-box">
+                                    <div class="panel-interior-header">
+                                        <span class="panel-interior-tag">Desafíos Críticos</span>
+                                        <h2 class="panel-interior-title">Problemas que Resolvemos</h2>
+                                    </div>
+                                    <div class="problemas-list">
+                                        <div class="problema-item">
+                                            <span class="problema-icon" aria-hidden="true">
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                            </span>
+                                            <span class="problema-text">Procesos manuales y repetitivos</span>
+                                        </div>
+                                        <div class="problema-item">
+                                            <span class="problema-icon" aria-hidden="true">
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                            </span>
+                                            <span class="problema-text">Información dispersa en herramientas</span>
+                                        </div>
+                                        <div class="problema-item">
+                                            <span class="problema-icon" aria-hidden="true">
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                            </span>
+                                            <span class="problema-text">Reportes tardíos y poca visibilidad operativa</span>
+                                        </div>
+                                        <div class="problema-item">
+                                            <span class="problema-icon" aria-hidden="true">
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                            </span>
+                                            <span class="problema-text">Falta de trazabilidad y control</span>
+                                        </div>
+                                        <div class="problema-item">
+                                            <span class="problema-icon" aria-hidden="true">
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                            </span>
+                                            <span class="problema-text">Toma de decisiones sin datos en tiempo real</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- CARA TRASERA (Outside Left: Diferenciadores corporativos) -->
+                        <div class="panel-face panel-back">
+                            <div class="reverso-container">
+                                <div class="reverso-bg-lines"></div>
+                                <div>
+                                    <h2 class="reverso-title">Por qué Nosotros</h2>
+                                    <div class="diferenciadores-list">
+                                        
+                                        <!-- Diferenciador 1 -->
+                                        <div class="diferenciador-item">
+                                            <div class="diferenciador-icon-box">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                                            </div>
+                                            <div class="diferenciador-info">
+                                                <h4>Soluciones a la Medida</h4>
+                                                <p>Diseñamos herramientas adaptadas al 100% de la lógica y particularidad de tu negocio.</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Diferenciador 2 -->
+                                        <div class="diferenciador-item">
+                                            <div class="diferenciador-icon-box">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                                            </div>
+                                            <div class="diferenciador-info">
+                                                <h4>Integración Nativa</h4>
+                                                <p>Conectamos sin fricciones con tus sistemas CRM, ERP y bases de datos actuales.</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Diferenciador 3 -->
+                                        <div class="diferenciador-item">
+                                            <div class="diferenciador-icon-box">
+                                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l-7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                                            </div>
+                                            <div class="diferenciador-info">
+                                                <h4>Enfoque Práctico y Escalable</h4>
+                                                <p>Entregamos valor operativo desde la primera fase, proyectando una escala global sólida.</p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="reverso-footer-brand">
+                                    ARQUITECTURA DIGITAL E INTELIGENTE
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+
+                    <!-- ==========================================
+                       B. PANEL CENTRAL (Base fija)
+                       ========================================== -->
+                    <section class="panel panel-center" id="panel-center">
+                        
+                        <!-- CARA FRONTAL (Inside Center: Servicios + Beneficios) -->
+                        <div class="panel-face panel-front">
+                            <div class="inside-center-container">
+                                
+                                <!-- Sección 3: Servicios -->
+                                <div>
+                                    <div class="panel-interior-header">
+                                        <span class="panel-interior-tag">Portafolio Tecnológico</span>
+                                        <h2 class="panel-interior-title">Nuestros Servicios</h2>
+                                    </div>
+                                    <div class="servicios-grid">
+                                        
+                                        <!-- Servicio 1 -->
+                                        <div class="servicio-card">
+                                            <div class="servicio-icon-box">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                            </div>
+                                            <span class="servicio-title">Asesoría Estratégica en IA</span>
+                                        </div>
+
+                                        <!-- Servicio 2 -->
+                                        <div class="servicio-card">
+                                            <div class="servicio-icon-box">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l-7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                                            </div>
+                                            <span class="servicio-title">Automatización de Procesos</span>
+                                        </div>
+
+                                        <!-- Servicio 3 -->
+                                        <div class="servicio-card">
+                                            <div class="servicio-icon-box">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+                                            </div>
+                                            <span class="servicio-title">Dashboards Inteligentes</span>
+                                        </div>
+
+                                        <!-- Servicio 4 -->
+                                        <div class="servicio-card">
+                                            <div class="servicio-icon-box">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+                                            </div>
+                                            <span class="servicio-title">Agentes de IA y Chatbots</span>
+                                        </div>
+
+                                        <!-- Servicio 5 -->
+                                        <div class="servicio-card">
+                                            <div class="servicio-icon-box">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                                            </div>
+                                            <span class="servicio-title">Desarrollo Empresarial</span>
+                                        </div>
+
+                                        <!-- Servicio 6 -->
+                                        <div class="servicio-card">
+                                            <div class="servicio-icon-box">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                                            </div>
+                                            <span class="servicio-title">Integración de Sistemas</span>
+                                        </div>
+
+                                        <!-- Servicio 7 -->
+                                        <div class="servicio-card">
+                                            <div class="servicio-icon-box">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                                            </div>
+                                            <span class="servicio-title">Analítica de Datos Avanzada</span>
+                                        </div>
+
+                                        <!-- Servicio 8 -->
+                                        <div class="servicio-card">
+                                            <div class="servicio-icon-box">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                            </div>
+                                            <span class="servicio-title">Automatización Documental</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Sección 4: Beneficios -->
+                                <div>
+                                    <div class="panel-interior-header" style="margin-bottom:12px; padding-bottom:6px;">
+                                        <span class="panel-interior-tag">Impacto Cuantificable</span>
+                                        <h2 class="panel-interior-title" style="font-size:17px;">Beneficios Corporativos</h2>
+                                    </div>
+                                    <div class="beneficios-grid">
+                                        <div class="beneficio-item">
+                                            <span class="beneficio-icon" aria-hidden="true">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                            </span>
+                                            <span class="beneficio-text">Ahorro drástico de tiempo</span>
+                                        </div>
+                                        <div class="beneficio-item">
+                                            <span class="beneficio-icon" aria-hidden="true">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                            </span>
+                                            <span class="beneficio-text">Reducción de fallas y errores</span>
+                                        </div>
+                                        <div class="beneficio-item">
+                                            <span class="beneficio-icon" aria-hidden="true">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                            </span>
+                                            <span class="beneficio-text">Mayor visibilidad y control</span>
+                                        </div>
+                                        <div class="beneficio-item">
+                                            <span class="beneficio-icon" aria-hidden="true">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                            </span>
+                                            <span class="beneficio-text">Datos en tiempo real</span>
+                                        </div>
+                                        <div class="beneficio-item">
+                                            <span class="beneficio-icon" aria-hidden="true">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                            </span>
+                                            <span class="beneficio-text">Mejores decisiones de negocio</span>
+                                        </div>
+                                        <div class="beneficio-item">
+                                            <span class="beneficio-icon" aria-hidden="true">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                            </span>
+                                            <span class="beneficio-text">Trazabilidad operativa total</span>
+                                        </div>
+                                        <div class="beneficio-item">
+                                            <span class="beneficio-icon" aria-hidden="true">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                            </span>
+                                            <span class="beneficio-text">Escalabilidad de sistemas</span>
+                                        </div>
+                                        <div class="beneficio-item">
+                                            <span class="beneficio-icon" aria-hidden="true">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                            </span>
+                                            <span class="beneficio-text">Eficiencia operativa superior</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- CARA TRASERA -->
+                        <div class="panel-face panel-back">
+                            <div class="back-cover-container">
+                                <div class="back-cover-geometric"></div>
+                                <div class="back-cover-brand">
+                                    ARQUITECTO DE SOLUCIONES
+                                    <span>EMPRESAS INTELIGENTES CON IA</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+
+                    <!-- ==========================================
+                       C. PANEL DERECHO (Bisagra izquierda)
+                       ========================================== -->
+                    <section class="panel panel-right" id="panel-right">
+                        
+                        <!-- CARA FRONTAL (Inside Right: Metodología + Áreas + Contacto) -->
+                        <div class="panel-face panel-front">
+                            <div class="inside-right-container">
+                                
+                                <!-- Sección 5: Metodología -->
+                                <div>
+                                    <div class="panel-interior-header" style="margin-bottom:12px; padding-bottom:6px;">
+                                        <span class="panel-interior-tag">Camino al Éxito</span>
+                                        <h2 class="panel-interior-title" style="font-size:17px;">Metodología de Trabajo</h2>
+                                    </div>
+                                    <div class="metodologia-secuencia">
+                                        <div class="metodologia-line"></div>
+                                        
+                                        <!-- Paso 1 -->
+                                        <div class="metodologia-paso">
+                                            <div class="paso-numero">1</div>
+                                            <span class="paso-nombre">Descubrir</span>
+                                        </div>
+
+                                        <!-- Paso 2 -->
+                                        <div class="metodologia-paso">
+                                            <div class="paso-numero">2</div>
+                                            <span class="paso-nombre">Analizar</span>
+                                        </div>
+
+                                        <!-- Paso 3 -->
+                                        <div class="metodologia-paso">
+                                            <div class="paso-numero">3</div>
+                                            <span class="paso-nombre">Diseñar</span>
+                                        </div>
+
+                                        <!-- Paso 4 -->
+                                        <div class="metodologia-paso">
+                                            <div class="paso-numero">4</div>
+                                            <span class="paso-nombre">Implementar</span>
+                                        </div>
+
+                                        <!-- Paso 5 -->
+                                        <div class="metodologia-paso">
+                                            <div class="paso-numero">5</div>
+                                            <span class="paso-nombre">Optimizar</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Sección 6: Áreas de aplicación -->
+                                <div>
+                                    <div class="panel-interior-header" style="margin-bottom:12px; padding-bottom:6px;">
+                                        <span class="panel-interior-tag">Transversalidad Sectorial</span>
+                                        <h2 class="panel-interior-title" style="font-size:17px;">Áreas de Aplicación</h2>
+                                    </div>
+                                    <div class="areas-grid">
+                                        
+                                        <!-- Área 1 -->
+                                        <div class="area-box">
+                                            <span class="area-icon" aria-hidden="true">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><line x1="12" y1="4" x2="12" y2="20"></line></svg>
+                                            </span>
+                                            <span class="area-nombre">Finanzas</span>
+                                        </div>
+
+                                        <!-- Área 2 -->
+                                        <div class="area-box">
+                                            <span class="area-icon" aria-hidden="true">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="12 6 12 12 16 14"></polygon></svg>
+                                            </span>
+                                            <span class="area-nombre">Operaciones</span>
+                                        </div>
+
+                                        <!-- Área 3 -->
+                                        <div class="area-box">
+                                            <span class="area-icon" aria-hidden="true">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line></svg>
+                                            </span>
+                                            <span class="area-nombre">Ventas</span>
+                                        </div>
+
+                                        <!-- Área 4 -->
+                                        <div class="area-box">
+                                            <span class="area-icon" aria-hidden="true">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                                            </span>
+                                            <span class="area-nombre">Logística</span>
+                                        </div>
+
+                                        <!-- Área 5 -->
+                                        <div class="area-box">
+                                            <span class="area-icon" aria-hidden="true">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l-7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                                            </span>
+                                            <span class="area-nombre">Inventarios</span>
+                                        </div>
+
+                                        <!-- Área 6 -->
+                                        <div class="area-box">
+                                            <span class="area-icon" aria-hidden="true">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                            </span>
+                                            <span class="area-nombre">Recursos H.</span>
+                                        </div>
+
+                                        <!-- Área 7 -->
+                                        <div class="area-box">
+                                            <span class="area-icon" aria-hidden="true">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                            </span>
+                                            <span class="area-nombre">Atención C.</span>
+                                        </div>
+
+                                        <!-- Área 8 -->
+                                        <div class="area-box">
+                                            <span class="area-icon" aria-hidden="true">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                                            </span>
+                                            <span class="area-nombre">Auditoría</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Sección 8: Contáctanos -->
+                                <address class="contacto-premium-box">
+                                    <div class="contacto-cta">
+                                        <strong>¿Listo para dar el salto?</strong> Agenda una reunión de diagnóstico y descubre cómo la IA puede transformar tu empresa hoy.
+                                    </div>
+                                    <div class="contacto-canales">
+                                        
+                                        <!-- Nombre -->
+                                        <div class="canal-item" aria-label="Nombre de contacto">
+                                            <span class="canal-icon" aria-hidden="true">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                            </span>
+                                            Jorge Santrich
+                                        </div>
+
+                                        <!-- Teléfono -->
+                                        <a href="tel:+584146470976" class="canal-item" aria-label="Llamar al teléfono móvil 1">
+                                            <span class="canal-icon" aria-hidden="true">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                            </span>
+                                            +58 414 647 0976
+                                        </a>
+
+                                        <!-- Teléfono 2 -->
+                                        <a href="tel:+584246509405" class="canal-item" aria-label="Llamar al teléfono móvil 2">
+                                            <span class="canal-icon" aria-hidden="true">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                            </span>
+                                            +58 424 650 9405
+                                        </a>
+
+                                        <!-- Email -->
+                                        <a href="mailto:jsantrich67@gmail.com" class="canal-item" aria-label="Enviar correo electrónico">
+                                            <span class="canal-icon" aria-hidden="true">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                            </span>
+                                            jsantrich67@gmail.com
+                                        </a>
+
+                                    </div>
+                                </address>
+
+                            </div>
+                        </div>
+
+                        <!-- CARA TRASERA (Outside Right: ¡LA PORTADA!) -->
+                        <div class="panel-face panel-back">
+                            <div class="cover-container">
+                                
+                                <!-- Circuitos SVG animados decorativos -->
+                                <svg class="cover-glow-circuits" viewBox="0 0 200 400" preserveAspectRatio="none">
+                                    <path d="M10,80 L80,120 L80,220 L150,260 L200,260" stroke="#00f5d4" stroke-width="1" fill="none" stroke-dasharray="2,2" opacity="0.4"></path>
+                                    <path d="M190,40 L120,90 L120,170 L50,220 L10,220" stroke="#00bbf9" stroke-width="1.2" fill="none" opacity="0.4"></path>
+                                    <circle cx="80" cy="120" r="3.5" fill="#00f5d4" style="animation: pulseGlow 2.5s infinite ease-in-out;"></circle>
+                                    <circle cx="120" cy="170" r="3.5" fill="#00bbf9" style="animation: pulseGlow 3.5s infinite ease-in-out; animation-delay:1s;"></circle>
+                                    <circle cx="50" cy="220" r="3.5" fill="#ffffff" style="animation: pulseGlow 2.8s infinite ease-in-out; animation-delay:0.5s;"></circle>
+                                </svg>
+
+                                <!-- Header Corporativo Superior -->
+                                <header class="cover-brand-header">
+                                    <span class="cover-tagline-small">Firma Consultora Especializada</span>
+                                </header>
+
+                                <!-- Espacio para Logo de Marca -->
+                                <div class="cover-logo-wrapper">
+                                    <!-- Carga el logo desde logo.png. Si falla, el script muestra el fallback CSS. -->
+                                    <img src="logo.png" alt="Logo Arquitecto de Soluciones" class="cover-logo" onerror="handleLogoError(this)">
+                                    
+                                    <!-- Logotipo fallback refinado que replica el logo cargado -->
+                                    <div class="cover-logo-fallback" id="logo-fallback" style="display: none;">
+                                        <!-- Simbolo del Logotipo Original en SVG -->
+                                        <svg width="60" height="60" viewBox="0 0 100 100" fill="none" class="fallback-symbol">
+                                            <!-- Curved Teal Swoosh -->
+                                            <path d="M15,82 C35,88 65,88 85,72 C70,82 40,84 20,80 Z" fill="#00f5d4" opacity="0.9"/>
+                                            <!-- Left leg of A (Silver Gradient) -->
+                                            <path d="M50,15 L25,75 L37,75 L50,42 Z" fill="url(#silverGradient)"/>
+                                            <!-- Right leg of A (Silver Gradient) -->
+                                            <path d="M50,15 L75,75 L63,75 L50,42 Z" fill="url(#silverGradient)"/>
+                                            <!-- Horizontal bar of A -->
+                                            <rect x="42" y="52" width="16" height="5" fill="url(#silverGradient)"/>
+                                            <!-- Bar Chart inside A (increasing heights) -->
+                                            <rect x="42" y="65" width="4" height="10" rx="1" fill="#e2e8f0"/>
+                                            <rect x="48" y="60" width="4" height="15" rx="1" fill="#cbd5e1"/>
+                                            <rect x="54" y="55" width="4" height="20" rx="1" fill="#94a3b8"/>
+                                            <!-- Circuit lines on the left -->
+                                            <path d="M36,35 L20,35 C17,35 15,33 15,30" stroke="#cbd5e1" stroke-width="2" fill="none"/>
+                                            <circle cx="15" cy="30" r="3" fill="#00f5d4"/>
+                                            <path d="M32,48 L16,48 L10,42" stroke="#cbd5e1" stroke-width="2" fill="none"/>
+                                            <circle cx="10" cy="42" r="3" fill="#cbd5e1"/>
+                                            <path d="M28,62 L12,62" stroke="#cbd5e1" stroke-width="2" fill="none"/>
+                                            <circle cx="12" cy="62" r="3" fill="#00f5d4"/>
+                                            
+                                            <defs>
+                                                <linearGradient id="silverGradient" x1="50" y1="15" x2="50" y2="75" gradientUnits="userSpaceOnUse">
+                                                    <stop offset="0%" stop-color="#ffffff"/>
+                                                    <stop offset="50%" stop-color="#cbd5e1"/>
+                                                    <stop offset="100%" stop-color="#94a3b8"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                        <!-- Texto del Logotipo Original en CSS -->
+                                        <div class="fallback-brand-text">
+                                            <div style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 16px; color: #ffffff; letter-spacing: 1.5px; line-height: 1.1;">ARQUITECTO</div>
+                                            <div style="font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 11px; color: #cbd5e1; letter-spacing: 1px; line-height: 1.1; margin-top: 2px;">DE SOLUCIONES</div>
+                                            <div style="font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 11px; color: #cbd5e1; letter-spacing: 1px; line-height: 1.1; margin-top: 2px;">EMPRESARIALES</div>
+                                            <div style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 9px; color: #00f5d4; letter-spacing: 4px; line-height: 1.1; margin-top: 6px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 4px; text-align: center;">—— CON IA ——</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Títulos de Impacto e Información Principal -->
+                                <div class="cover-main-content">
+                                    <h1 class="cover-title">
+                                        Soluciones
+                                        <span>Empresariales con Inteligencia Artificial</span>
+                                    </h1>
+                                    <p class="cover-subtitle">
+                                        Automatizamos procesos, integramos datos complejos y convertimos la información de tu empresa en decisiones inteligentes.
+                                    </p>
+                                </div>
+
+                                <!-- Footer de la Portada -->
+                                <footer class="cover-visual-footer">
+                                    <div class="corporate-badge">Executive Edition</div>
+                                    <div class="cover-tech-nodes" aria-hidden="true">
+                                        <div class="node-dot"></div>
+                                        <div class="node-dot"></div>
+                                        <div class="node-dot"></div>
+                                    </div>
+                                </footer>
+
+                            </div>
+                        </div>
+
+                    </section>
+
+                </div>
+
+                <!-- Elemento de sombra del papel proyectada en la mesa -->
+                <div class="brochure-shadow-cast" id="brochure-shadow"></div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ==========================================================================
+       15. LÓGICA DE INTERACCIÓN Y ANIMACIÓN EN JAVASCRIPT
+       ========================================================================== */ -->
+    <script>
+        const brochure = document.getElementById('brochure');
+        const btnToggleFold = document.getElementById('btn-toggle-fold');
+        const btnFoldText = document.getElementById('btn-fold-text');
+        const btnToggleView = document.getElementById('btn-toggle-view');
+        const btnViewText = document.getElementById('btn-view-text');
+        const brochureScaler = document.getElementById('brochure-scaler');
+
+        let isOpen = false;
+        let isFlatView = true; // Siempre Vista Plana
+
+        // ==========================================
+        // A. Control de Apertura y Cierre
+        // ==========================================
+        function toggleBrochure() {
+            isOpen = !isOpen;
+            
+            if (isOpen) {
+                brochure.classList.remove('closed');
+                brochure.classList.add('open');
+                btnFoldText.textContent = "Cerrar brochure";
+                btnToggleFold.setAttribute('aria-expanded', 'true');
+                
+                btnToggleFold.querySelector('svg').innerHTML = `
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                    <line x1="2" y1="10" x2="22" y2="10"></line>
+                `;
+            } else {
+                brochure.classList.remove('open');
+                brochure.classList.add('closed');
+                btnFoldText.textContent = "Abrir brochure";
+                btnToggleFold.setAttribute('aria-expanded', 'false');
+                
+                btnToggleFold.querySelector('svg').innerHTML = `
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                `;
+            }
+
+            adjustLayoutScale();
+        }
+
+        btnToggleFold.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleBrochure();
+        });
+
+        brochure.addEventListener('click', (e) => {
+            if (e.target.closest('a') || window.innerWidth <= 768) return;
+            toggleBrochure();
+        });
+
+        // B. Vista siempre plana (sin perspectiva 3D)
+        // El toggle de vista fue eliminado; se fija view-flat permanentemente.
+
+        // ==========================================
+        // C. Controlador de Errores de Logotipo
+        // ==========================================
+        function handleLogoError(imgElement) {
+            imgElement.style.display = 'none';
+            const fallback = document.getElementById('logo-fallback');
+            if (fallback) {
+                fallback.style.display = 'flex';
+            }
+        }
+
+        // ==========================================
+        // D. Soporte de Escala Responsiva Inteligente
+        // ==========================================
+        function adjustLayoutScale() {
+            const width = window.innerWidth;
+            
+            if (width <= 768) {
+                brochure.classList.add('mobile-mode');
+                brochure.classList.remove('closed');
+                brochure.classList.add('open');
+                brochure.classList.remove('view-table');
+                brochure.classList.add('view-flat');
+                
+                btnToggleFold.style.display = 'none';
+                if (btnToggleView) btnToggleView.style.display = 'none';
+                
+                brochureScaler.style.transform = 'none';
+                return;
+            } else {
+                brochure.classList.remove('mobile-mode');
+                btnToggleFold.style.display = 'flex';
+                if (btnToggleView) btnToggleView.style.display = 'flex';
+                
+                if (isOpen) {
+                    brochure.classList.remove('closed');
+                    brochure.classList.add('open');
+                } else {
+                    brochure.classList.remove('open');
+                    brochure.classList.add('closed');
+                }
+                
+                // Siempre vista plana
+                brochure.classList.remove('view-table');
+                brochure.classList.add('view-flat');
+            }
+
+            const padding = 50;
+            const availableWidth = window.innerWidth - padding;
+            const availableHeight = window.innerHeight - 180;
+
+            const designWidth = 1040; 
+            const designHeight = 660;
+
+            const scaleX = availableWidth / designWidth;
+            const scaleY = availableHeight / designHeight;
+            const scale = Math.min(scaleX, scaleY, 1); 
+
+            brochureScaler.style.transform = `scale(${scale})`;
+        }
+
+        window.addEventListener('resize', adjustLayoutScale);
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            adjustLayoutScale();
+            
+            // Efecto de brillo de entrada para el logotipo
+            setTimeout(() => {
+                const logo = document.querySelector('.cover-logo');
+                if (logo && logo.style.display !== 'none') {
+                    logo.style.filter = 'drop-shadow(0 0 25px rgba(0, 245, 212, 0.6))';
+                    setTimeout(() => {
+                        logo.style.filter = 'drop-shadow(0 6px 15px rgba(0, 0, 0, 0.35))';
+                    }, 1200);
+                }
+            }, 800);
+        });
+    </script>
+</body>
+</html>
